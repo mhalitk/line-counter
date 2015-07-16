@@ -28,7 +28,7 @@ def show_usage():
     """ Shows usage of line-counter."""
     print("")
     print("Usage:")
-    print("  line-counter -fd [-r] path1 [path2 ...] [--filter ext1 [ext2 ...]] ")
+    print("  linecounter -fd [-r] path1 [path2 ...] [--filter ext1 [ext2 ...]] ")
     print("")
     print("options:")
     print("  %s\t\t%s" % ("-f", "Run line-counter with file paths"))
@@ -37,6 +37,12 @@ def show_usage():
     print("  %s\t%s" % ("--filter", "Count lines for files which extension is ext1,ext2\n"
                                     "\t\tcan be used if '-d' is set"))
     print("  %s\t%s" % ("--help", "Show this message"))
+
+def show_usage_error():
+    """ Shows short usage error for wrong usages. """
+    print("usage: linecounter -fd [-r] path1 [path2 ...] [--filter ext1 [ext2 ...]]")
+    print("Try 'linecounter --help' for more information.")
+    print("")
 
 
 def line_count_file(file_path):
@@ -88,26 +94,26 @@ def main():
         show_usage()
         return -1
 
+    if len(sys.argv) < 3:
+        show_usage_error()
+        return -1
+
+    if "-f" in sys.argv and "-d" in sys.argv:
+        show_usage_error()
+        return -1
+
     output = ""
     total_line = 0
 
-    if len(sys.argv) < 3:
-        show_usage()
-        return -1
-
-    if sys.argv.count("-f") >= 1 and sys.argv.count("-d") >= 1:
-        show_usage()
-        return -1
-
-    if sys.argv.count("-f") == 1 and sys.argv.index("-f") == 1:
+    if "-f" in sys.argv and sys.argv.index("-f") == 1:
         total_line = line_count_files(sys.argv[2:])
-    elif sys.argv.count("-d") == 1 and sys.argv.index("-d") == 1:
+    elif "-d" in sys.argv == 1 and sys.argv.index("-d") == 1:
         flags = []
         if sys.argv[2] == "-r":
             flags.append("-r")
 
         filters = []
-        if sys.argv.count("--filter") > 0:
+        if "--filter" in sys.argv:
             filters = sys.argv[sys.argv.index("--filter")+1::]
 
         start_index = 2 + len(flags)
@@ -119,7 +125,7 @@ def main():
     output += "\ntotal lines: " + str(total_line)
 
     print(output)
-    exit(total_line)
+    return 0
 
 if __name__ == '__main__':
     main()
