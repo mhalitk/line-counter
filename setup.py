@@ -1,7 +1,7 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(name='linecounter',
-      version='1.1.0',
+      version='1.2.0',
       description='linecounter for files',
       long_description='linecounter is a tool you can count how many lines you have in your files with it.',
       url='https://github.com/halitkarakis/line-counter/',

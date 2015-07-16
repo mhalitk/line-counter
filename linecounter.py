@@ -17,12 +17,12 @@
 """ Basically counts lines in files. It is developed for developers,
     who want to count lines of their codes. It can be used for another
     purposes also.
-
-    Author: m.halit karakis
-    Created: 15-07-2015 """
+"""
 import sys
 from os import listdir
 from os.path import isfile, isdir, join, splitext
+
+Version = "1.2.0"
 
 def show_usage():
     """ Shows usage of line-counter."""
@@ -37,6 +37,7 @@ def show_usage():
     print("  %s\t%s" % ("--filter", "Count lines for files which extension is ext1,ext2\n"
                                     "\t\tcan be used if '-d' is set"))
     print("  %s\t%s" % ("--help", "Show this message"))
+    print("  %s\t%s" % ("--version", "Show version info"))
 
 def show_usage_error():
     """ Shows short usage error for wrong usages. """
@@ -90,9 +91,16 @@ def line_count_dir(dir_path, flags, filters):
 
 def main():
     """ Main flow of line-counter """
-    if sys.argv[1] == "--help":
-        show_usage()
+    if len(sys.argv) == 1:
+        show_usage_error()
         return -1
+
+    if sys.argv[1] == "-h" or sys.argv[1] == "--help":
+        show_usage()
+        return 0
+    elif sys.argv[1] == "-v" or sys.argv[1] == "--version":
+        print("linecounter version: " + Version)
+        return 0
 
     if len(sys.argv) < 3:
         show_usage_error()
