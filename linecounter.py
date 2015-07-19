@@ -75,9 +75,14 @@ def line_count_dir(dir_path, flags, filters):
     """ Counts lines for files which are in given directory path and matches
         filter requirements """
     total = 0
-    file_list = [join(dir_path, file) for file in listdir(dir_path)
-                 if isfile(join(dir_path, file)) and
-                 splitext(join(dir_path, file))[1] in filters]
+
+    if "--filter" in flags:
+        file_list = [join(dir_path, file_p) for file_p in listdir(dir_path)
+                     if isfile(join(dir_path, file_p)) and
+                     splitext(join(dir_path, file_p))[1] in filters]
+    else:
+        file_list = [join(dir_path, file_p) for file_p in listdir(dir_path)
+                     if isfile(join(dir_path, file_p))] 
                  
     total += line_count_files(file_list, flags)
 
