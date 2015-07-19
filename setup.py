@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='linecounter',
-      version='1.2.0',
+      version='1.3.1',
       description='linecounter for files',
       long_description='linecounter is a tool you can count how many lines you have in your files with it.',
       url='https://github.com/halitkarakis/line-counter/',
@@ -13,6 +13,6 @@ setup(name='linecounter',
             'linecounter=linecounter:main',
         ],
       },
-      license='Apache',
-      keywords='line counting tool'
+      license='Apache Software License',
+      keywords='line counting tool command line'
       )

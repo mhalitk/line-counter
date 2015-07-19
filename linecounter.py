@@ -17,7 +17,7 @@ import sys
 from os import listdir
 from os.path import isfile, isdir, join, splitext
 
-VERSION = "1.3.0"
+VERSION = "1.3.1"
 ALL_ARGS = {"linecounter", "linecounter.py", "-f", "-d", "-r", "-v", "-h", "--version", \
         "--help", "--filter", "--noempty"}
 
@@ -131,7 +131,7 @@ def main():
              flag not in flags]
 
     paths = [path for path in sys.argv if path not in ALL_ARGS and
-             path not in extensions]
+             path not in extensions and path != sys.argv[0]]
 
     if "-f" in flags:
         total_line = line_count_files(paths, flags)
