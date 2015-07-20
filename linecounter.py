@@ -48,7 +48,7 @@ def line_count_file(file_path, flags=None):
     """ Counts lines for given file in file_name """
     try:
         count = 0
-        with open(file_path) as current_file:
+        with open(file_path, encoding="ascii", errors="surrogateescape") as current_file:
             for line in current_file:
                 if line.strip() == "" and flags != None and \
                    "--noempty" in flags:
